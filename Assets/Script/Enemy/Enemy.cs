@@ -11,7 +11,6 @@ public class Enemy : MonoBehaviour, IDamageable
     private int currentPathIndex = 0;
     private bool moving;
     private Transform target;
-    public float GetSpeed() { return speed; }
     void Start()
     {
         GetAllPath();
@@ -22,6 +21,15 @@ public class Enemy : MonoBehaviour, IDamageable
         SetTarget();
         MoveToTarget();
     }
+
+    // getter and setter
+
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+    }
+
+    // main Enemy Movement methods
 
     void GetAllPath()
     {
@@ -59,6 +67,8 @@ public class Enemy : MonoBehaviour, IDamageable
             }
         }
     }
+
+    // IDamageable implementation
     
     public void TakeDamage(float damage)
     {

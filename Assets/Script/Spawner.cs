@@ -3,14 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class EnemyPack
-{
-    public GameObject enemyPrefab;
-    public int quantity;
-    public float spawnRate;
-}
-
-[System.Serializable]
 public class Wave
 {
     public string name;
@@ -34,22 +26,17 @@ public class Spawner : MonoBehaviour
     {
         for (int i = 0; i < pack.quantity; i++)
         {
-            Instantiate(pack.enemyPrefab, spawnPoint.position, Quaternion.identity);
+            GameObject spawnedEnemy = Instantiate(pack.enemyPrefab, spawnPoint.position, Quaternion.identity);
+            spawnedEnemy.GetComponent<Enemy>().SetSpeed(pack.speed);
             yield return new WaitForSeconds(pack.spawnRate);
         }
     }
 
     public IEnumerator LoadCurrentWave(Wave wave)
     {
-        List<Coroutine> tasks = new List<Coroutine>();
-        foreach(EnemyPack packs in wave.enemyPacks)
+        foreach (EnemyPack packs in wave.enemyPacks)
         {
-            tasks.Add(StartCoroutine(SpawnEnemy(packs)));
-        }
-        
-        foreach(Coroutine task in tasks)
-        {
-            yield return task;
+            yield return StartCoroutine(SpawnEnemy(packs));
         }
     }
 

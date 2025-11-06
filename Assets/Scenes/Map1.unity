@@ -277,8 +277,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 484.51328, y: 0}
-  m_SizeDelta: {x: 100, y: 600}
+  m_AnchoredPosition: {x: 459.51328, y: 0}
+  m_SizeDelta: {x: 150, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &15922619
 MonoBehaviour:
@@ -1715,8 +1715,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -484.51324, y: 0}
-  m_SizeDelta: {x: 100, y: 600}
+  m_AnchoredPosition: {x: -459.51324, y: 0}
+  m_SizeDelta: {x: 150, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &279204227
 MonoBehaviour:
@@ -3197,7 +3197,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -6013,10 +6013,9 @@ MonoBehaviour:
   waves:
   - name: Wave 1
     enemyPacks:
-    - enemyPrefab: {fileID: 8689042118204785775, guid: e8daf8ffba54e854ca7ca6a21fa1f50f, type: 3}
-      quantity: 5
-      spawnRate: 5
-    waveInterval: 2
+    - {fileID: 11400000, guid: d2033a3d7a3c2b54782506173e94906d, type: 2}
+    - {fileID: 11400000, guid: c4583f385e8249f41916a4df29eb8b3d, type: 2}
+    waveInterval: 5
 --- !u!4 &1083968657
 Transform:
   m_ObjectHideFlags: 0
