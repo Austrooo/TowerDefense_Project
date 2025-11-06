@@ -1,0 +1,65 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public class EnemyPack
+{
+    public GameObject enemyPrefab;
+    public int quantity;
+    public float spawnRate;
+}
+
+[System.Serializable]
+public class Wave
+{
+    public string name;
+    public List<EnemyPack> enemyPacks;
+    public float waveInterval;
+}
+
+public class Spawner : MonoBehaviour
+{
+    [SerializeField] private GameObject enemy;
+    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private List<Wave> waves;
+
+    private void Start()
+    {
+        spawnPoint = GameObject.Find("Path").transform.GetChild(0);
+        StartCoroutine(BeginWave());
+    }
+
+    public IEnumerator SpawnEnemy(EnemyPack pack)
+    {
+        for (int i = 0; i < pack.quantity; i++)
+        {
+            Instantiate(pack.enemyPrefab, spawnPoint.position, Quaternion.identity);
+            yield return new WaitForSeconds(pack.spawnRate);
+        }
+    }
+
+    public IEnumerator LoadCurrentWave(Wave wave)
+    {
+        List<Coroutine> tasks = new List<Coroutine>();
+        foreach(EnemyPack packs in wave.enemyPacks)
+        {
+            tasks.Add(StartCoroutine(SpawnEnemy(packs)));
+        }
+        
+        foreach(Coroutine task in tasks)
+        {
+            yield return task;
+        }
+    }
+
+    public IEnumerator BeginWave()
+    {
+        foreach(Wave wave in waves)
+        {
+            Debug.Log("Spawning wave : " + wave.name);
+            yield return StartCoroutine(LoadCurrentWave(wave));
+            yield return new WaitForSeconds(wave.waveInterval);
+        }
+    }
+}
