@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private GameObject projectile;
     [Header("Attributes")]
     private bool canAttack = true;
     [SerializeField] private float range;
@@ -47,7 +49,7 @@ public class Tower : MonoBehaviour
     {
         Debug.Log("Attacking Enemy");
         canAttack = false;
-        enemy.GetComponent<Enemy>().TakeDamage(damage);
+        SpawnProjectile();
         yield return new WaitForSeconds(1 / fireRate);
         canAttack = true;
     }
@@ -55,5 +57,12 @@ public class Tower : MonoBehaviour
     private bool IsTargetInRange()
     {
         return Vector2.Distance(enemy.position, transform.position) < range;
+    }
+
+    private void SpawnProjectile()
+    {
+        GameObject proj = Instantiate(projectile, transform.position, Quaternion.identity);
+        proj.GetComponent<Projectile>().SetTarget(enemy);
+        proj.GetComponent<Projectile>().SetDamage(damage);
     }
 }

@@ -75,6 +75,7 @@ public class Enemy : MonoBehaviour, IDamageable
         health -= damage;
         if (health <= 0)
         {
+            Spawner.i.enemyLists.Remove(gameObject);
             Destroy(gameObject);
         }
     }
