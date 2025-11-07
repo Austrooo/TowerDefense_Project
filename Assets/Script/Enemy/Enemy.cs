@@ -18,8 +18,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     void Update()
     {
-        SetTarget();
-        MoveToTarget();
+        SetNextDestination();
+        MoveToDestination();
     }
 
     // getter and setter
@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
     
-    void SetTarget()
+    void SetNextDestination()
     {
         if (target != null) return;
         if (currentPathIndex < paths.Length - 1)
@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
-    void MoveToTarget()
+    void MoveToDestination()
     {
         if (target == null) return;
 

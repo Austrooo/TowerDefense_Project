@@ -12,10 +12,16 @@ public class Wave
 
 public class Spawner : MonoBehaviour
 {
+    public static Spawner instance;
     [SerializeField] private GameObject enemy;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private List<Wave> waves;
+    private int spawnedNum = 0; 
 
+    void Awake()
+    {
+        instance = this;
+    }
     private void Start()
     {
         spawnPoint = GameObject.Find("Path").transform.GetChild(0);
@@ -28,6 +34,8 @@ public class Spawner : MonoBehaviour
         {
             GameObject spawnedEnemy = Instantiate(pack.enemyPrefab, spawnPoint.position, Quaternion.identity);
             spawnedEnemy.GetComponent<Enemy>().SetSpeed(pack.speed);
+            spawnedEnemy.name = pack.enemyPrefab.name + " " + (spawnedNum + 1);
+            spawnedNum++;
             yield return new WaitForSeconds(pack.spawnRate);
         }
     }
